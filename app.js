@@ -1,10 +1,16 @@
 const express = require('express');
 const logger = require('morgan');
 const bodyParser = require('body-parser');
-
-const index = require('./routes/index');
-
+const cors = require('cors')
+const mongoose = require('mongoose');
 const app = express();
+
+const asset = require('./routes/asset');
+const index = require('./routes/index');
+const user = require('./routes/user');
+
+require('dotenv').config();
+mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds233748.mlab.com:33748/keepr`);
 
 app.use(logger('dev'));
 app.use(bodyParser.json());
@@ -13,6 +19,8 @@ app.use(bodyParser.urlencoded({
 }));
 
 app.use('/', index);
+app.use('/api/auth', user);
+app.use('/api/:owner', asset);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
