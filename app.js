@@ -5,6 +5,7 @@ const cors = require('cors')
 const mongoose = require('mongoose');
 const app = express();
 
+const asset = require('./routes/asset');
 const index = require('./routes/index');
 const user = require('./routes/user');
 
@@ -19,6 +20,7 @@ app.use(bodyParser.urlencoded({
 
 app.use('/', index);
 app.use('/api/auth', user);
+app.use('/api/:owner', asset);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
