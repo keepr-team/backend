@@ -2,7 +2,7 @@ const Asset = require('../models/Asset');
 
 class AssetController {
 
-  static getFiles(req, res) {
+  static getAssets(req, res) {
     Asset.find({
         owner: req.params.owner
       })
@@ -19,7 +19,7 @@ class AssetController {
       });
   }
 
-  static getFile(req, res) {
+  static getAsset(req, res) {
     Asset.findById(req.params.id)
       .then(doc => {
         res.status(200).json({

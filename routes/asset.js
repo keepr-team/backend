@@ -3,7 +3,7 @@ const router = express.Router();
 
 const AssetController = require('../controllers/AssetController');
 
-router.get('/', AssetController.getFiles);
-router.get('/:id', AssetController.getFile);
+router.get('/', AssetController.getAssets);
+router.get('/:id', AssetController.getAsset);
 
 module.exports = router;
