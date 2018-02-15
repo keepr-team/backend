@@ -12,6 +12,7 @@ const user = require('./routes/user');
 require('dotenv').config();
 mongoose.connect(`mongodb://${process.env.DB_USER}:${process.env.DB_PASSWORD}@ds233748.mlab.com:33748/keepr`);
 
+app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({
