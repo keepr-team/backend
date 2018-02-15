@@ -43,7 +43,11 @@ class UserController {
 
                 res.status(200).json({
                   message: 'Successfully login',
-                  token: token
+                  token: token,
+                  owner: {
+                    _id: user._id,
+                    name: user.name
+                  }
                 });
               } else {
                 res.status(404).json({
