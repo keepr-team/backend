@@ -1,4 +1,5 @@
 const Asset = require('../models/Asset');
+const setCategory = require('../helpers/setCategory');
 
 class AssetController {
 
@@ -35,9 +36,10 @@ class AssetController {
   }
   
   static createAsset(req,res) {
+    
     Asset.create({
       name: req.file.originalname,
-      category: 'Image',
+      category: setCategory(req.file.originalname),
       url:req.file.cloudStoragePublicUrl,
       owner: req.params.owner
     })
