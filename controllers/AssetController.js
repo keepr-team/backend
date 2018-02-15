@@ -1,4 +1,5 @@
 const Asset = require('../models/Asset');
+const setCategory = require('../helpers/setCategory');
 
 class AssetController {
 
@@ -23,7 +24,8 @@ class AssetController {
     Asset.findById(req.params.id)
       .then(doc => {
         res.status(200).json({
-          message: error.message
+          message: 'Get asset success',
+          doc: doc
         });
       })
       .catch(error => {
@@ -31,6 +33,27 @@ class AssetController {
           message: error.message
         });
       });
+  }
+  
+  static createAsset(req,res) {
+    
+    Asset.create({
+      name: req.file.originalname,
+      category: setCategory(req.file.originalname),
+      url:req.file.cloudStoragePublicUrl,
+      owner: req.params.owner
+    })
+      .then(doc => {
+      res.status(200).json({
+        message: 'Upload asset success',
+        doc: doc
+      })
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: error.message
+      })
+    })
   }
 }
 

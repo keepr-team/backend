@@ -21,7 +21,7 @@ app.use(bodyParser.urlencoded({
 
 app.use('/', index);
 app.use('/api/auth', user);
-app.use('/api/:owner', asset);
+app.use('/api', asset);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

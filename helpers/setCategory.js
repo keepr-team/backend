@@ -18,7 +18,7 @@ const setCategory = (filename) => {
   if (audio.indexOf(format) != -1) {
     category = 'Audio';
   }
-
+  
   return category;
 
 }
