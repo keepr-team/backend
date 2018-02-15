@@ -31,30 +31,36 @@ class UserController {
         email: req.body.email
       })
       .then(user => {
-        comparePassword(req.body.password, user.password)
-          .then(result => {
-            if (result) {
-              let token = jwt.sign({
-                _id: user._id,
-                name: user.name,
-                email: user.email
-              }, process.env.JWT_TOKEN_SECRET);
-                        
-              res.status(200).json({
-                message: 'Successfully login',
-                token: token
-              });
-            } else {
+        if (user != null) {
+          comparePassword(req.body.password, user.password)
+            .then(result => {
+              if (result) {
+                let token = jwt.sign({
+                  _id: user._id,
+                  name: user.name,
+                  email: user.email
+                }, process.env.JWT_TOKEN_SECRET);
+
+                res.status(200).json({
+                  message: 'Successfully login',
+                  token: token
+                });
+              } else {
+                res.status(404).json({
+                  message: 'Email or password you entered wrong!'
+                });
+              }
+            })
+            .catch(error => {
               res.status(500).json({
-                message: 'Email or password you entered wrong!'
+                message: message.error
               });
-            }
-          })
-          .catch(error => {
-            res.status(500).json({
-              message: error.message
             });
+        } else {
+          res.status(404).json({
+            message: 'Email or password you entered wrong!'
           });
+        }
       })
       .catch(error => {
         res.status(500).json({
